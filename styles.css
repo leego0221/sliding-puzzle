@@ -3,13 +3,11 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: beige;
+  background-color: #11151b;
 }
 
 h1 {
-  padding: 10px;
-  background-color: aquamarine;
-  border-radius: 10px;
+  color: #d2d3d4;
 }
 
 .border {
@@ -23,10 +21,11 @@ h1 {
   place-items: center;
   width: 200px;
   height: 200px;
-  background-color: aquamarine;
+  color: #d2d3d4;
+  background-color: #1d2126;
   font-size: 60px;
   box-sizing: border-box;
-  border: 2px solid black;
+  border: 2px solid #d2d3d4;
 }
 
 .pointed {

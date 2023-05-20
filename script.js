@@ -11,20 +11,23 @@ let prevPointedNum = START;
 block[START].classList.add("pointed");
 block[START].classList.add("prev-pointed");
 
-function swapBlock(num) {
-  // 클래스 변경
-  block[pointedNum].classList.remove("pointed");
-  block[pointedNum + num].classList.add("pointed");
-  block[prevPointedNum].classList.remove("prev-pointed");
-  block[pointedNum].classList.add("prev-pointed");
+function swapBlock(key) {
+  // 정해진 키 외의 값이 들어오면 버그 생김
+  if (key === TO_LEFT || key === TO_RIGHT || key === TO_UP || key === TO_DOWN) {
+    // 클래스 변경
+    block[pointedNum].classList.remove("pointed");
+    block[pointedNum + key].classList.add("pointed");
+    block[prevPointedNum].classList.remove("prev-pointed");
+    block[pointedNum].classList.add("prev-pointed");
 
-  prevPointedNum = pointedNum;
-  pointedNum = pointedNum + num;
+    prevPointedNum = pointedNum;
+    pointedNum = pointedNum + key;
 
-  // 내부 값 변경
-  const temp = block[pointedNum].innerText;
-  block[pointedNum].innerText = block[prevPointedNum].innerText;
-  block[prevPointedNum].innerText = temp;
+    // 내부 값 변경
+    const temp = block[pointedNum].innerText;
+    block[pointedNum].innerText = block[prevPointedNum].innerText;
+    block[prevPointedNum].innerText = temp;
+  }
 }
 
 function shuffleBlock() {
@@ -39,9 +42,30 @@ function shuffleBlock() {
     } else if (num === 13 && pointedNum < 12) {
       num = TO_DOWN;
     } else {
-      num = 0; // swapBlock(0)는 겉으로 아무 일도 일어나지 않음
+      num = 0; // 정해진 숫자 외 다른 것은 아무 일도 일어나지 않음
     }
     swapBlock(num);
+  }
+}
+
+function checkPuzzle() {
+  let check = 0;
+  block.forEach((item) => {
+    if (item.innerText === item.id.substring(1)) {
+      check++;
+    } else if (item.innerText === "") {
+      // 빈칸은 아무것도 안 함
+    } else {
+      check = 0;
+    }
+  });
+
+  // 다 맞췄을 시 동작
+  if (check === 15) {
+    setTimeout(() => {
+      alert("퍼즐을 다 맞췄습니다! 확인 버튼을 누르면 다시 섞입니다.");
+      shuffleBlock();
+    }, 1000);
   }
 }
 
@@ -54,6 +78,11 @@ window.addEventListener("keydown", (event) => {
     swapBlock(TO_UP);
   } else if (event.key === "ArrowDown" && pointedNum < 12) {
     swapBlock(TO_DOWN);
+  }
+
+  // 퍼즐 맞췄는지 확인
+  if (block[block.length - 1].classList.contains("pointed")) {
+    checkPuzzle();
   }
 });
 
