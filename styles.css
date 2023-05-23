@@ -2,32 +2,59 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   background-color: #11151b;
 }
 
-h1 {
+#title {
   color: #d2d3d4;
+  font-size: 40px;
+  text-align: center;
 }
 
-.border {
+#border {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
+  gap: 0.2rem;
+  width: 35rem;
+  height: 35rem;
+  padding: 5px;
+  border: 10px solid grey;
+  border-radius: 10px;
 }
 
 .block {
   display: grid;
   place-items: center;
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
+  font-size: 3rem;
   color: #d2d3d4;
   background-color: #1d2126;
-  font-size: 60px;
-  box-sizing: border-box;
   border: 2px solid #d2d3d4;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
 }
 
 .pointed {
   all: unset;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px;
+}
+
+#shuffle-btn {
+  font-size: 50px;
+  border: none;
+  border-radius: 10px;
+  color: #1d2126;
+  background-color: grey;
+  transition: opacity linear 0.1s;
+}
+
+#shuffle-btn:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
