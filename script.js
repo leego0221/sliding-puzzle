@@ -1,11 +1,17 @@
-let size; // 블록의 가로 세로 크기
+let size; // 블록의 가로 세로 개수
 let index, pointedNum, prevPointedNum;
+let block; // 모드 변경을 위해 let으로 선언
 
-const shuffleButton = document.getElementById("shuffle-btn");
+const shuffleButton = document.getElementById("shuffle");
+const modeButton = document.querySelectorAll(".btn");
 
 function makePuzzle(num) {
-  const title = document.getElementById("title");
   const border = document.getElementById("border");
+  if (border.childElementCount !== 0) {
+    border.replaceChildren();
+  } // 모드 변경 시 블록 모두 지운 뒤 생성
+
+  const title = document.getElementById("title");
   title.innerText = `Sliding Puzzle! (${num}x${num})`;
   size = num;
   index = num * num - 1;
@@ -27,6 +33,7 @@ function makePuzzle(num) {
   pointedNum = index;
   prevPointedNum = index;
   border.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
+  block = document.querySelectorAll(".block");
 }
 
 function swapBlock(key) {
@@ -50,7 +57,7 @@ function swapBlock(key) {
 
 function shuffleBlock() {
   for (let i = 0; i < size * 50; i++) {
-    let num = Math.floor(Math.random() * 4) + 10;
+    let num = Math.floor(Math.random() * 4) + 10; // 임의의 규칙적인 숫자 생성
     if (num === 10 && pointedNum % size !== 0) {
       num = -1;
     } else if (num === 11 && pointedNum % size !== size - 1) {
@@ -71,24 +78,15 @@ function checkPuzzle() {
   block.forEach((item) => {
     if (item.innerText === item.id.substring(1)) {
       check++;
-    } else if (item.innerText === "") {
-      // 빈칸은 아무것도 안 함
-    } else {
-      check = 0;
     }
   });
 
   // 다 맞췄을 시 동작
   if (check === size * size - 1) {
     setTimeout(() => {
-      alert("퍼즐을 다 맞췄습니다! 확인 버튼을 누르면 다시 섞입니다.");
-      shuffleBlock();
+      alert("퍼즐을 다 맞췄습니다! 다시하고 싶으면 shuffle 버튼을 누르세요.");
     }, 100);
   }
-}
-
-function simpleCheck() {
-  if (block[block.length - 1].classList.contains("pointed")) checkPuzzle();
 }
 
 window.addEventListener("keydown", (event) => {
@@ -110,12 +108,18 @@ window.addEventListener("keydown", (event) => {
 
 shuffleButton.addEventListener("click", () => {
   shuffleBlock();
-  simpleCheck();
 });
 
+modeButton.forEach((item, index) => {
+  item.addEventListener("click", () => {
+    if (index !== 0) {
+      makePuzzle(Number(item.id.substring(4)));
+    } // modeButton[0]는 shuffleButton임
+  });
+});
+
+// 기본 모드 설정
 makePuzzle(4);
-const block = document.querySelectorAll(".block");
 
-shuffleBlock(); // 처음 셔플
-
-simpleCheck(); // 혹시 모를 맨 처음 체크
+// 처음 셔플
+shuffleBlock();

@@ -2,6 +2,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-color: #11151b;
 }
 
@@ -9,6 +10,10 @@ body {
   color: #d2d3d4;
   font-size: 40px;
   text-align: center;
+}
+
+#board {
+  display: flex;
 }
 
 #border {
@@ -45,7 +50,14 @@ body {
   margin: 20px;
 }
 
-#shuffle-btn {
+#selection-title {
+  color: #d2d3d4;
+  font-size: 40px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn {
   font-size: 50px;
   border: none;
   border-radius: 10px;
@@ -54,7 +66,11 @@ body {
   transition: opacity linear 0.1s;
 }
 
-#shuffle-btn:hover {
+.btn:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+.btn:active {
+  opacity: 0.5;
 }
