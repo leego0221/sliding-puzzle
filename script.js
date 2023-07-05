@@ -90,14 +90,14 @@ function checkPuzzle() {
 }
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft" && pointedNum % size !== 0) {
-    swapBlock(-1);
-  } else if (event.key === "ArrowRight" && pointedNum % size !== size - 1) {
+  if (event.key === "ArrowLeft" && pointedNum % size !== size - 1) {
     swapBlock(1);
-  } else if (event.key === "ArrowUp" && pointedNum > size - 1) {
-    swapBlock(-size);
-  } else if (event.key === "ArrowDown" && pointedNum < size * (size - 1)) {
+  } else if (event.key === "ArrowRight" && pointedNum % size !== 0) {
+    swapBlock(-1);
+  } else if (event.key === "ArrowUp" && pointedNum < size * (size - 1)) {
     swapBlock(size);
+  } else if (event.key === "ArrowDown" && pointedNum > size - 1) {
+    swapBlock(-size);
   }
 
   // 퍼즐 맞췄는지 확인
